@@ -68,7 +68,7 @@ public class Restaurant {
     public void customerMenu() {
         displayRoleMenu(Role.customer);
         int currentBill = 0;
-        boolean payed = false;
+        boolean[] payed = {false};
         customerMenuLoop:
         while(true) {
             int choice = scanner.nextInt();
@@ -95,35 +95,15 @@ public class Restaurant {
                     int payChoice = scanner.nextInt();
                     scanner.nextLine();
 
-                    switch (payChoice) {
-                        case 1:
-                            System.out.printf("you have payed your bill of %skr\n", currentBill);
-                            payed = true;
-                            currentBill = 0;
-                            break;
-                            case 2:
-                                System.out.printf("Your order of %s has been canceled.\n", foodOrdered);
-                                currentBill = currentBill - foodPrice;
-                                break;
-                            case 3:
-                                System.out.println("Continue your ordering");
-                                menu.showMenu();
-                                break;
-                                default:
-                                    System.out.println("Invalid choice.");
-                                    break;
-                    }
+                    currentBill = handlePayChoice(foodOrdered,foodPrice,currentBill,payed);
 
                     break;
-              //  case 3:
-              //     System.out.printf("You have payed your bill of %skr", currentBill);
-              //      payed = true;
-              //      break;
+
                 case 3:
                     displayRoleMenu(Role.customer);
                     break;
                 case 4:
-                    if (payed) {
+                    if (currentBill == 0) {
                         System.out.println("Thank you and come again!");
                         break customerMenuLoop;
                     } else {
@@ -136,6 +116,33 @@ public class Restaurant {
                     break;
             }
         }
+    }
+    private int handlePayChoice(String foodOrdered, int foodPrice,int currentBill, boolean[] payed){
+        System.out.println("\nWould you like to: ");
+        System.out.println("1. Pay now");
+        System.out.println("2. Cancel this order");
+        System.out.println("3. Continue ordering");
+        int payChoice = scanner.nextInt();
+        scanner.nextLine();
+        switch (payChoice) {
+            case 1:
+                System.out.printf("You have payed your bill of %skr\n", currentBill);
+                payed[0] = true;
+                currentBill = 0;
+                break;
+                case 2:
+                    System.out.println("Your order of %s has been canceled.\n");
+                    currentBill = currentBill - foodPrice;
+                    break;
+                    case 3:
+                        System.out.println("Continue your ordering"); //TODO: Antingen ta bort alternativet så man bara kan beställa en rätt, eller lägga till funktonaliten
+                    menu.showMenu();
+                    break;
+                    default:
+                        System.out.println("Invalid choice.");
+                        break;
+        }
+        return currentBill;
     }
 
     public void staffMenu() {
