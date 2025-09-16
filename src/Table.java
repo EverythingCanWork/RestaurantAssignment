@@ -8,13 +8,21 @@ public class Table {
        this.isBooked = isBooked;
    }
 
-   public void bookTable(Table table ){
-       if(table.isBooked){
-           System.out.println("The table"+ table.tableCode+ " has been booked");
+   public int getTableCode() {
+       return tableCode;
+   }
+
+   public boolean isBooked() {
+       return isBooked;
+   }
+
+   public void bookTable(){
+       if(isBooked){
+           System.out.println("The table"+ tableCode+ " has been booked");
            return;
        }else{
-           table.isBooked = true;
-           System.out.println("The table"+ table.tableCode+ " has been booked");
+           isBooked = true;
+           System.out.println("The table"+ tableCode+ " has been booked");
 
        }
 

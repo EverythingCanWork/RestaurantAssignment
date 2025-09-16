@@ -120,12 +120,12 @@ public class Restaurant {
                     System.out.println("Please select table number");
                     int tableNumber = scanner.nextInt();
                     scanner.nextLine();
-
                     for(Table t:tables){
-
+                        if(t.getTableCode() == tableNumber){
+                            t.bookTable();
+                            break;
+                        }
                     }
-
-
                     break;
                 default:
                     System.out.println("Please select a valid number");
