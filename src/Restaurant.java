@@ -65,7 +65,7 @@ public class Restaurant {
             open = false;
             System.out.println("You have closed the restaurant\n");
         }
-
+        staffMenu();
     }
     public void customerMenu() {
         displayRoleMenu(Role.customer);
