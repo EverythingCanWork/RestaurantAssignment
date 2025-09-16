@@ -51,7 +51,8 @@ public class Restaurant {
                 System.out.println("1. Customer");
                 System.out.println("2. Staff");
                 System.out.println("3. Admin");
-                System.out.println("4. Quit");
+                System.out.println("4. Relist options");
+                System.out.println("5. Quit");
                 break;
         }
 
@@ -144,6 +145,7 @@ public class Restaurant {
                 default:
                     System.out.println("please select a valid number");
                     displayRoleMenu(Role.staff);
+                    break;
 
             }
         }
