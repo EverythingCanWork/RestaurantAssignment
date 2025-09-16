@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Restaurant {
-    boolean open = true;
+    boolean open = false;
     Scanner scanner = new Scanner(System.in);
     Menu menu = new Menu();
     Kitchen kitchen = new Kitchen();
