@@ -6,6 +6,8 @@ public class Restaurant {
     Menu menu = new Menu();
     Kitchen kitchen = new Kitchen();
     Staff staff = new Staff();
+    Table table1 =new Table(1,false);
+    Table table2=new Table(2,false);
 
     public enum Role {
         staff,
