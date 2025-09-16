@@ -6,6 +6,11 @@ public class Restaurant {
     Menu menu = new Menu();
     Kitchen kitchen = new Kitchen();
     Staff staff = new Staff();
+    Table[] tables = {
+            new Table(1, false),
+            new Table(2, false),
+            new Table(3, false)
+    };
 
     public enum Role {
         staff,
@@ -44,7 +49,8 @@ public class Restaurant {
                 System.out.println("2. Order");
                 System.out.println("3. Pay");
                 System.out.println("4. Display options again");
-                System.out.println("5. Leave restaurant");
+                System.out.println("5. Book a table");
+                System.out.println("6. Leave restaurant");
                 break;
             case startMenu:
                 System.out.println("Please select your role.");
@@ -102,6 +108,17 @@ public class Restaurant {
                     displayRoleMenu(Role.customer);
                     break;
                 case 5:
+                    System.out.println("Please select table number");
+                    int tableNumber = scanner.nextInt();
+                    scanner.nextLine();
+                    for(Table t:tables){
+                        if(t.getTableCode() == tableNumber){
+                            t.bookTable();
+                            break;
+                        }
+                    }
+                    break;
+                case 6:
                     if (payed) {
                         System.out.println("Thank you and come again!");
                         break customerMenuLoop;
