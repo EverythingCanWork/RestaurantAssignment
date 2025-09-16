@@ -18,12 +18,11 @@ public class Table {
 
    public void bookTable(){
        if(isBooked){
-           System.out.println("The table"+ tableCode+ " has been booked");
+           System.out.println("Sorry! The table number: "+ tableCode+ " has already been booked");
            return;
        }else{
            isBooked = true;
-           System.out.println("The table"+ tableCode+ " has been booked");
-
+           System.out.println(" You booked table number : "+ tableCode );
        }
 
    }

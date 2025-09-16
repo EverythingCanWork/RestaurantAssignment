@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Restaurant {
-    boolean open = false;
+    boolean open = true;
     Scanner scanner = new Scanner(System.in);
     Menu menu = new Menu();
     Kitchen kitchen = new Kitchen();
@@ -49,8 +49,8 @@ public class Restaurant {
                 System.out.println("2. Order");
                 System.out.println("3. Pay");
                 System.out.println("4. Display options again");
-                System.out.println("5. Leave restaurant");
-                System.out.println("6.Book a table");
+                System.out.println("5. Book a table");
+                System.out.println("6. Leave restaurant");
                 break;
             case startMenu:
                 System.out.println("Please select your role.");
@@ -108,15 +108,6 @@ public class Restaurant {
                     displayRoleMenu(Role.customer);
                     break;
                 case 5:
-                    if (payed) {
-                        System.out.println("Thank you and come again!");
-                        break customerMenuLoop;
-                    } else {
-                        System.out.println("You have not yet payed!");
-                        System.out.printf("you still have a bill of %skr", currentBill);
-                    }
-                    break;
-                case 6:
                     System.out.println("Please select table number");
                     int tableNumber = scanner.nextInt();
                     scanner.nextLine();
@@ -125,6 +116,15 @@ public class Restaurant {
                             t.bookTable();
                             break;
                         }
+                    }
+                    break;
+                case 6:
+                    if (payed) {
+                        System.out.println("Thank you and come again!");
+                        break customerMenuLoop;
+                    } else {
+                        System.out.println("You have not yet payed!");
+                        System.out.printf("you still have a bill of %skr", currentBill);
                     }
                     break;
                 default:
