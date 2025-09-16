@@ -4,11 +4,10 @@ public class Main {
     public static void main(String[] args) {
         Restaurant restaurant = new Restaurant();
         Scanner scanner = new Scanner(System.in);
-
+        System.out.println("\nWelcome to the restaurant!");
+        restaurant.displayRoleMenu(Restaurant.Role.startMenu);
         mainloop:
         while(true){
-            System.out.println("\nWelcome to the restaurant!");
-            restaurant.displayRoleMenu(Restaurant.Role.startMenu);
             int choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice){
@@ -17,7 +16,7 @@ public class Main {
                         restaurant.customerMenu();
                     }
                     else{
-                        System.out.println("Restaurant is currently closed, We are open between 10 and 21.");
+                        System.out.println("Restaurant is currently closed, Please wait for Staff or Admin to open the restaurant.");
                     }
                     break;
                 case 2:
@@ -27,8 +26,12 @@ public class Main {
                     restaurant.adminMenu();
                     break;
                 case 4:
+                    restaurant.displayRoleMenu(Restaurant.Role.startMenu);
+                case 5:
                     break mainloop;
-
+                default:
+                    System.out.println("Please select a valid option");
+                    break;
 
             }
 

@@ -6,6 +6,11 @@ public class Restaurant {
     Menu menu = new Menu();
     Kitchen kitchen = new Kitchen();
     Staff staff = new Staff();
+    Table[] tables = {
+            new Table(1, false),
+            new Table(2, false),
+            new Table(3, false)
+    };
 
     public enum Role {
         staff,
@@ -42,15 +47,18 @@ public class Restaurant {
                 System.out.println(" ===Restaurant=== ");
                 System.out.println("1. See The Menu");
                 System.out.println("2. Order");
-                System.out.println("3. Display options again");
-                System.out.println("4. Leave restaurant");
+
+                System.out.println("4. Display options again");
+                System.out.println("5. Book a table");
+                System.out.println("6. Leave restaurant");
                 break;
             case startMenu:
                 System.out.println("Please select your role.");
                 System.out.println("1. Customer");
                 System.out.println("2. Staff");
                 System.out.println("3. Admin");
-                System.out.println("4. Quit");
+                System.out.println("4. Relist options");
+                System.out.println("5. Quit");
                 break;
         }
 
@@ -63,7 +71,7 @@ public class Restaurant {
             open = false;
             System.out.println("You have closed the restaurant\n");
         }
-
+        staffMenu();
     }
     public void customerMenu() {
         displayRoleMenu(Role.customer);
@@ -99,10 +107,22 @@ public class Restaurant {
 
                     break;
 
-                case 3:
+                case 4:
                     displayRoleMenu(Role.customer);
                     break;
-                case 4:
+
+                case 5:
+                    System.out.println("Please select table number");
+                    int tableNumber = scanner.nextInt();
+                    scanner.nextLine();
+                    for(Table t:tables){
+                        if(t.getTableCode() == tableNumber){
+                            t.bookTable();
+                            break;
+                        }
+                    }
+                    break;
+                case 6:
                     if (currentBill == 0) {
                         System.out.println("Thank you and come again!");
                         break customerMenuLoop;
