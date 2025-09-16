@@ -93,10 +93,10 @@ public class Restaurant {
                         payed = false;
                     }
                     break;
-                case 3:
-                    System.out.printf("You have payed your bill of %skr", currentBill);
-                    payed = true;
-                    break;
+              //  case 3:
+              //     System.out.printf("You have payed your bill of %skr", currentBill);
+              //      payed = true;
+              //      break;
                 case 4:
                     displayRoleMenu(Role.customer);
                     break;
