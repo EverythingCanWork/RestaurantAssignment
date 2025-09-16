@@ -37,26 +37,24 @@ public class Staff {
     }
     public void hireStaff(){
         System.out.println("Enter the firstname of the new hire:");
-        String fName = scanner.nextLine();
-        firstName.add(fName);
+        String firstName = scanner.nextLine();
+        this.firstName.add(firstName);
         System.out.println("enter the lastname of the new hire");
-        String lName = scanner.nextLine();
-        lastName.add(lName);
+        String lastName = scanner.nextLine();
+        this.lastName.add(lastName);
         System.out.println("enter the personal number of the new hire(YYYYMMDDXXXX)");
-        Long pNumber = scanner.nextLong();
+        Long personalNumber = scanner.nextLong();
         scanner.nextLine();
-        personalNumber.add(pNumber);
+        this.personalNumber.add(personalNumber);
         System.out.println("enter the sallary of the new hire");
-        int pay = scanner.nextInt();
+        int sallery = scanner.nextInt();
         scanner.nextLine();
-        sallery.add(pay);
+        this.sallery.add(sallery);
         System.out.println("Enter the job title of the new hire");
-        String occupation = scanner.nextLine();
-        jobTitle.add(occupation);
+        String jobTitle = scanner.nextLine();
+        this.jobTitle.add(jobTitle);
 
-
-
-        System.out.printf("You have added %s %s as a %s with a sallery of %skr and the personal number %s", fName, lName, occupation, pay, pNumber);
+        System.out.printf("You have added %s %s as a %s with a sallery of %skr and the personal number %s", firstName, lastName, jobTitle, sallery, personalNumber);
     }
     public void fireStaff(){
         System.out.println("which person do you wish to fire?");
