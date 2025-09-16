@@ -6,8 +6,11 @@ public class Restaurant {
     Menu menu = new Menu();
     Kitchen kitchen = new Kitchen();
     Staff staff = new Staff();
-    Table table1 =new Table(1,false);
-    Table table2=new Table(2,false);
+    Table[] tables = {
+            new Table(1, false),
+            new Table(2, false),
+            new Table(3, false)
+    };
 
     public enum Role {
         staff,
@@ -114,6 +117,15 @@ public class Restaurant {
                     }
                     break;
                 case 6:
+                    System.out.println("Please select table number");
+                    int tableNumber = scanner.nextInt();
+                    scanner.nextLine();
+
+                    for(Table t:tables){
+
+                    }
+
+
                     break;
                 default:
                     System.out.println("Please select a valid number");
