@@ -47,6 +47,7 @@ public class Restaurant {
                 System.out.println("3. Pay");
                 System.out.println("4. Display options again");
                 System.out.println("5. Leave restaurant");
+                System.out.println("6.Book a table");
                 break;
             case startMenu:
                 System.out.println("Please select your role.");
@@ -111,6 +112,8 @@ public class Restaurant {
                         System.out.println("You have not yet payed!");
                         System.out.printf("you still have a bill of %skr", currentBill);
                     }
+                    break;
+                case 6:
                     break;
                 default:
                     System.out.println("Please select a valid number");
