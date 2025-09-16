@@ -27,6 +27,7 @@ public class Main {
                     break;
                 case 4:
                     restaurant.displayRoleMenu(Restaurant.Role.startMenu);
+                    break;
                 case 5:
                     break mainloop;
                 default:
