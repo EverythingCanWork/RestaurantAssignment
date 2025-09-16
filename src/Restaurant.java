@@ -42,9 +42,8 @@ public class Restaurant {
                 System.out.println(" ===Restaurant=== ");
                 System.out.println("1. See The Menu");
                 System.out.println("2. Order");
-                System.out.println("3. Pay");
-                System.out.println("4. Display options again");
-                System.out.println("5. Leave restaurant");
+                System.out.println("3. Display options again");
+                System.out.println("4. Leave restaurant");
                 break;
             case startMenu:
                 System.out.println("Please select your role.");
@@ -69,7 +68,7 @@ public class Restaurant {
     public void customerMenu() {
         displayRoleMenu(Role.customer);
         int currentBill = 0;
-        boolean payed = true;
+        boolean payed = false;
         customerMenuLoop:
         while(true) {
             int choice = scanner.nextInt();
@@ -89,18 +88,41 @@ public class Restaurant {
                     System.out.printf("\nYou have ordered %s for %skr", foodOrdered, foodPrice);
                     kitchen.cook(foodOrdered);
                     currentBill = currentBill + foodPrice;
-                    if (currentBill < 1){
-                        payed = false;
+                    System.out.println("\nWould you like to: ");
+                    System.out.println("1. Pay now");
+                    System.out.println("2. Cancel this order");
+                    System.out.println("3. Continue ordering");
+                    int payChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    switch (payChoice) {
+                        case 1:
+                            System.out.printf("you have payed your bill of %skr\n", currentBill);
+                            payed = true;
+                            currentBill = 0;
+                            break;
+                            case 2:
+                                System.out.printf("Your order of %s has been canceled.\n", foodOrdered);
+                                currentBill = currentBill - foodPrice;
+                                break;
+                            case 3:
+                                System.out.println("Continue your ordering");
+                                menu.showMenu();
+                                break;
+                                default:
+                                    System.out.println("Invalid choice.");
+                                    break;
                     }
+
                     break;
               //  case 3:
               //     System.out.printf("You have payed your bill of %skr", currentBill);
               //      payed = true;
               //      break;
-                case 4:
+                case 3:
                     displayRoleMenu(Role.customer);
                     break;
-                case 5:
+                case 4:
                     if (payed) {
                         System.out.println("Thank you and come again!");
                         break customerMenuLoop;
