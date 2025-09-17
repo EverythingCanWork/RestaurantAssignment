@@ -96,11 +96,7 @@ public class Restaurant {
                     System.out.printf("\nYou have ordered %s for %skr", foodOrdered, foodPrice);
                     kitchen.cook(foodOrdered);
                     currentBill = currentBill + foodPrice;
-                    System.out.println("\nWould you like to: ");
-                    System.out.println("1. Pay now");
-                    System.out.println("2. Cancel this order");
-                    System.out.println("3. Continue ordering");
-                    int payChoice = scanner.nextInt();
+
                     scanner.nextLine();
 
                     currentBill = handlePayChoice(foodOrdered,foodPrice,currentBill,payed);
