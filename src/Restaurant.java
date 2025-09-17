@@ -52,7 +52,7 @@ public class Restaurant {
                 System.out.println("2. Order");
 
                 System.out.println("4. Display options again");
-                System.out.println("5. Book a table");
+                System.out.println("5. Booking system");
                 System.out.println("6. Leave restaurant");
                 break;
             case startMenu:
@@ -118,17 +118,41 @@ public class Restaurant {
                     break;
 
                 case 5:
-                    System.out.println("Please enter the table number you want to book: ");
-                    int tableNumber = scanner.nextInt();
+                    System.out.println("===Welcome to the booking System!===");
+                    System.out.println("1. Book a table");
+                    System.out.println("2. Cancel a booking");
+
+                    int bookingChoice = scanner.nextInt();
                     scanner.nextLine();
-                    for(Table t:tables){
-                        if(t.getTableCode() == tableNumber){
-                            System.out.println("Please enter your name: ");
-                            String name = scanner.nextLine();
-                            t.bookTable(name);
-                            break;
-                        }
-                    }
+                    switch (bookingChoice){
+                        case 1: System.out.println("Please enter the table number you want to book: ");
+                            int tableNumber = scanner.nextInt();
+                            scanner.nextLine();
+                            for(Table t:tables){
+                                if(t.getTableCode() == tableNumber){
+                                    System.out.println("Please enter your name: ");
+                                    String name = scanner.nextLine();
+                                    t.bookTable(name);
+                                    break;
+                                }
+                            }
+                            break ;
+                            case 2: System.out.println("Please enter the table number you want to unbook: ");
+                                int bookedTableNumber = scanner.nextInt();
+                                scanner.nextLine();
+                                for(Table t:tables){
+                                    if(t.getTableCode() == bookedTableNumber){
+                                        t.cancelBookedTable(bookedTableNumber);
+                                        System.out.println("You have cancelled the booked table!");
+                                        break;
+                                    }
+                                }
+                            break ;
+
+
+
+                }
+
                     break;
                 case 6:
                     if (currentBill == 0) {

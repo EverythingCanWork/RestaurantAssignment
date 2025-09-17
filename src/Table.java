@@ -21,10 +21,9 @@ public class Table {
    public void setTableCode(int tableCode) {
        this.tableCode = tableCode;
    }
-   public void  setCustomerName(String customerName) {
+   public void setCustomerName(String customerName) {
       this.customerName = customerName;
    }
-
 
    public void bookTable(String customerName){
        if(isBooked){
@@ -38,4 +37,14 @@ public class Table {
 
    }
 
+   public void cancelBookedTable(int tableCode){
+       if(isBooked){
+           this.isBooked = false;
+           this.customerName = "";
+           System.out.println("you unbooked table number : "+ tableCode + " with name: " + customerName);
+       }else{
+           System.out.println("This table is not booked");
+       }
+
+   }
 }
