@@ -9,11 +9,7 @@ public class Restaurant {
     Staff staff = new Staff();
     ArrayList<Table> tables = new ArrayList<>();
 
-    public Restaurant() {
-    for(int i=0; i<=10; i++){
-        tables.add(new Table(i));
-       }
-    }
+
 
     public enum Role {
         staff,
@@ -122,38 +118,7 @@ public class Restaurant {
                     System.out.println("1. Book a table");
                     System.out.println("2. Cancel a booking");
 
-                    int bookingChoice = scanner.nextInt();
-                    scanner.nextLine();
-                    switch (bookingChoice){
-                        case 1: System.out.println("Please enter the table number you want to book: ");
-                            int tableNumber = scanner.nextInt();
-                            scanner.nextLine();
-                            for(Table t:tables){
-                                if(t.getTableCode() == tableNumber){
-                                    System.out.println("Please enter your name: ");
-                                    String name = scanner.nextLine();
-                                    t.bookTable(name);
-                                    break;
-                                }
-                            }
-                            break ;
-                            case 2: System.out.println("Please enter the table number you want to unbook: ");
-                                int bookedTableNumber = scanner.nextInt();
-                                scanner.nextLine();
-                                for(Table t:tables){
-                                    if(t.getTableCode() == bookedTableNumber){
-                                        t.cancelBookedTable(bookedTableNumber);
-                                        System.out.println("You have cancelled the booked table!");
-                                        break;
-                                    }
-                                }
-                            break ;
-
-
-
-                }
-
-                    break;
+                   break;
                 case 6:
                     if (currentBill == 0) {
                         System.out.println("Thank you and come again!");
