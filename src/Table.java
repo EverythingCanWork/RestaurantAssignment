@@ -1,28 +1,39 @@
 public class Table {
    private boolean isBooked;
    private int tableCode;
+   private String customerName;
 
 
-   public Table(int tableCode, boolean isBooked) {
+   public Table(int tableCode, boolean isBooked, String customerName) {
        this.tableCode = tableCode;
        this.isBooked = isBooked;
+       this.customerName = customerName;
    }
+    public Table(int tableCode) {
+        this.tableCode = tableCode;
+        this.isBooked = false;
+        this.customerName = "";
+    }
 
    public int getTableCode() {
        return tableCode;
    }
-
-   public boolean isBooked() {
-       return isBooked;
+   public void setTableCode(int tableCode) {
+       this.tableCode = tableCode;
+   }
+   public void  setCustomerName(String customerName) {
+      this.customerName = customerName;
    }
 
-   public void bookTable(){
+
+   public void bookTable(String customerName){
        if(isBooked){
            System.out.println("Sorry! The table number: "+ tableCode+ " has already been booked");
            return;
        }else{
-           isBooked = true;
-           System.out.println(" You booked table number : "+ tableCode );
+           this.isBooked = true;
+           this.customerName = customerName;
+           System.out.println(" You booked table number : "+ tableCode + " with name: " + customerName );
        }
 
    }

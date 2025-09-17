@@ -1,16 +1,19 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Restaurant {
-    boolean open = false;
+    boolean open = true;
     Scanner scanner = new Scanner(System.in);
     Menu menu = new Menu();
     Kitchen kitchen = new Kitchen();
     Staff staff = new Staff();
-    Table[] tables = {
-            new Table(1, false),
-            new Table(2, false),
-            new Table(3, false)
-    };
+    ArrayList<Table> tables = new ArrayList<>();
+
+    public Restaurant() {
+    for(int i=0; i<=10; i++){
+        tables.add(new Table(i));
+       }
+    }
 
     public enum Role {
         staff,
@@ -115,12 +118,14 @@ public class Restaurant {
                     break;
 
                 case 5:
-                    System.out.println("Please select table number");
+                    System.out.println("Please enter the table number you want to book: ");
                     int tableNumber = scanner.nextInt();
                     scanner.nextLine();
                     for(Table t:tables){
                         if(t.getTableCode() == tableNumber){
-                            t.bookTable();
+                            System.out.println("Please enter your name: ");
+                            String name = scanner.nextLine();
+                            t.bookTable(name);
                             break;
                         }
                     }
