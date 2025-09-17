@@ -64,9 +64,15 @@ public class Restaurant {
 
     }
     public void changeRestaurantStatus(){
+
         if (!open) {
-            open = true;
-            System.out.println("You have opened the restaurant!\n");
+            if (!staff.minimumStaff()){
+                System.out.println("You need to have one chef and one server to be able to open the restaurant.\n");
+                return;
+            } else{
+                open = true;
+                System.out.println("You have opened the restaurant!\n");
+            }
         } else {
             open = false;
             System.out.println("You have closed the restaurant\n");
@@ -185,6 +191,7 @@ public class Restaurant {
                     displayRoleMenu(Role.staff);
                     break;
                 case 0:
+                    displayRoleMenu(Role.startMenu);
                     break staffMenuLoop;
                 default:
                     System.out.println("please select a valid number");
@@ -227,6 +234,7 @@ public class Restaurant {
                     displayRoleMenu(Role.admin);
                     break;
                 case 0:
+                    displayRoleMenu(Role.startMenu);
                     break adminMenuLoop;
                 default:
                     System.out.println("please enter a valid number");
@@ -234,6 +242,7 @@ public class Restaurant {
 
 
             }
+
         }
     }
 }
