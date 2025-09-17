@@ -34,8 +34,6 @@ public class Main {
                     System.out.println("Please select a valid option");
                     break;
             }
-
-
         }
     }
   }
