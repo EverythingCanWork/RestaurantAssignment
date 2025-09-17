@@ -153,17 +153,17 @@ public class Restaurant {
                 payed[0] = true;
                 currentBill = 0;
                 break;
-                case 2:
-                    System.out.println("Your order of %s has been canceled.\n");
-                    currentBill = currentBill - foodPrice;
-                    break;
-                    case 3:
-                        System.out.println("Continue your ordering"); //TODO: Antingen ta bort alternativet så man bara kan beställa en rätt, eller lägga till funktonaliten
-                    menu.showMenu();
-                    break;
-                    default:
-                        System.out.println("Invalid choice.");
-                        break;
+            case 2:
+                System.out.println("Your order of %s has been canceled.\n");
+                currentBill = currentBill - foodPrice;
+                break;
+            case 3:
+                System.out.println("Continue your ordering"); //TODO: Antingen ta bort alternativet så man bara kan beställa en rätt, eller lägga till funktonaliten
+                menu.showMenu();
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                break;
         }
         return currentBill;
     }
