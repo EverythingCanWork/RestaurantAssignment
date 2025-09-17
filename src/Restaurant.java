@@ -90,8 +90,9 @@ public class Restaurant {
                 case 2:
                     System.out.print("Please enter your order: ");
                     int foodOrderIndex = scanner.nextInt() - 1;
-                    String foodOrdered = menu.getFoods(foodOrderIndex);
-                    int foodPrice = menu.getPrices(foodOrderIndex);
+                    Dish dishOrdered = menu.getFoods(foodOrderIndex);
+                    String foodOrdered = dishOrdered.getDishName();
+                    int foodPrice = dishOrdered.getDishPrice();
                     scanner.nextLine();
                     System.out.printf("\nYou have ordered %s for %skr", foodOrdered, foodPrice);
                     kitchen.cook(foodOrdered);
