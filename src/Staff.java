@@ -76,6 +76,18 @@ public class Staff {
         }
     }
 
+    /**
+     * To open a restaurant you need at least one chef and one server.
+     * @return
+     */
+    public boolean minimumStaff(){
+
+        if (jobTitle.contains("Chef") && jobTitle.contains("Server")){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 
