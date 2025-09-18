@@ -79,11 +79,12 @@ public class Restaurant {
         displayRoleMenu(Role.staff);
     }
     public void customerMenu() {
-        displayRoleMenu(Role.customer);
+
         int currentBill = 0;
         boolean[] payed = {false};
         customerMenuLoop:
         while(true) {
+            displayRoleMenu(Role.customer);
             int choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -110,12 +111,10 @@ public class Restaurant {
                     break;
 
                 case 4:
-                    displayRoleMenu(Role.customer);
                     break;
-
                 case 5:
                     handleBooking();
-                   break;
+                    break;
                 case 6:
                     if (currentBill == 0) {
                         System.out.println("Thank you and come again!");
@@ -236,11 +235,10 @@ public class Restaurant {
         System.out.println("Please enter the table number you want to book: ");
         int tableNumber = scanner.nextInt();
         Table selectedTable=null;
-        System.out.println("you chose table number " + tableNumber);
+
         for (Table t : tables) {
             if (t.getTableCode() == tableNumber) {
                 selectedTable = t;
-                System.out.println("your selected table number is " + selectedTable.getTableCode());
                 break;
             }
         }
@@ -280,14 +278,19 @@ public class Restaurant {
         }
     }
     public void handleBooking(){
+
         Scanner scanner = new Scanner(System.in);
+        bookingloop:
         while(true){
+            displayRoleMenu(Role.startMenu);
             System.out.println("===Welcome to the booking System!===");
             System.out.println("1. Book a table");
             System.out.println("2. Cancel a booking");
+            System.out.println("3. Back to previous menu");
 
             int bookingChoice = scanner.nextInt();
             scanner.nextLine();
+
             switch (bookingChoice) {
             case 1:
                 bookTable();
@@ -295,6 +298,8 @@ public class Restaurant {
             case 2:
                 cancelBooking();
                 break;
+            case 3:
+                break bookingloop;
             default:
                 System.out.println("Please select a valid option");
                 break;
