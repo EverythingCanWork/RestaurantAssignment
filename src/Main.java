@@ -8,8 +8,8 @@ public class Main {
         restaurant.displayRoleMenu(Restaurant.Role.startMenu);
         mainloop:
         while(true){
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = InputHandler.getIntInput();
+
             switch (choice){
                 case 1:
                     if (restaurant.open){
@@ -33,10 +33,7 @@ public class Main {
                 default:
                     System.out.println("Please select a valid option");
                     break;
-
             }
-
-
         }
     }
   }

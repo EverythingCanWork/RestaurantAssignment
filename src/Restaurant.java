@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Restaurant {
@@ -6,20 +7,19 @@ public class Restaurant {
     Menu menu = new Menu();
     Kitchen kitchen = new Kitchen();
     Staff staff = new Staff();
-    Table[] tables = {
-            new Table(1, false),
-            new Table(2, false),
-            new Table(3, false)
-    };
+    ArrayList<Table> tables = new ArrayList<>();
 
+    public Restaurant() {
+       for(int i = 0; i <= 10; i++) {
+           tables.add(new Table(i));
+       }
+    }
     public enum Role {
         staff,
         admin,
         customer,
         startMenu
     }
-
-
     public void displayRoleMenu(Role role){
         switch (role) {
             case staff:
@@ -49,7 +49,7 @@ public class Restaurant {
                 System.out.println("2. Order");
 
                 System.out.println("4. Display options again");
-                System.out.println("5. Book a table");
+                System.out.println("5. Booking system");
                 System.out.println("6. Leave restaurant");
                 break;
             case startMenu:
@@ -64,7 +64,6 @@ public class Restaurant {
 
     }
     public void changeRestaurantStatus(){
-
         if (!open) {
             if (!staff.minimumStaff()){
                 System.out.println("You need to have one chef and one server to be able to open the restaurant.\n");
@@ -80,6 +79,7 @@ public class Restaurant {
         displayRoleMenu(Role.staff);
     }
     public void customerMenu() {
+
         int currentBill = 0;
         boolean[] payed = {false};
         customerMenuLoop:
@@ -115,18 +115,8 @@ public class Restaurant {
 
                 case 4:
                     break;
-
                 case 5:
-                    System.out.println("Please select table number");
-                    int tableNumber = scanner.nextInt();
-                    scanner.nextLine();
-                    for(Table t:tables){
-                        if(t.getTableCode() == tableNumber){
-                            t.bookTable();
-                            break;
-                        }
-                    }
-                    pauseUntilEnter();
+                    handleBooking();
                     break;
                 case 6:
                     System.out.println("Thank you and come again!");
@@ -164,10 +154,8 @@ public class Restaurant {
         }
         return currentBill;
     }
-
     public void staffMenu() {
         displayRoleMenu(Role.staff);
-
         staffMenuLoop:
         while(true){
             int choice = scanner.nextInt();
@@ -194,14 +182,12 @@ public class Restaurant {
                 default:
                     System.out.println("please select a valid number");
                     displayRoleMenu(Role.staff);
-
             }
         }
 
     }
     public void adminMenu() {
         displayRoleMenu(Role.admin);
-
         adminMenuLoop:
         while(true){
             int choice = scanner.nextInt();
@@ -237,8 +223,6 @@ public class Restaurant {
                 default:
                     System.out.println("please enter a valid number");
                     break;
-
-
             }
 
         }
@@ -248,4 +232,80 @@ public class Restaurant {
         scanner.nextLine();
     }
 
+    public void bookTable() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter the table number you want to book: ");
+        int tableNumber = scanner.nextInt();
+        Table selectedTable=null;
+
+        for (Table t : tables) {
+            if (t.getTableCode() == tableNumber) {
+                selectedTable = t;
+                break;
+            }
+        }
+        assert selectedTable != null;
+        if(!selectedTable.getIsBooked()){
+                System.out.println("Please enter your name: ");
+                scanner.nextLine();
+                String name = scanner.nextLine();
+                selectedTable.setIsBooked(true);
+                selectedTable.setCustomerName(name);
+
+                System.out.println(" You booked table number : "+ selectedTable.getTableCode() + " with name: " + selectedTable.getCustomerName() );
+        }else{
+                System.out.println("Sorry! The table number: "+ selectedTable.getTableCode()+ " has already been booked");
+            }
+
+    }
+    public void cancelBooking(){
+        System.out.println("Please enter the table number you want to unbook: ");
+        Scanner scanner= new Scanner(System.in);
+        int bookedTableNumber = scanner.nextInt();
+        scanner.nextLine();
+
+        Table selectedTable=null;
+        for(Table t:tables){
+            if(t.getTableCode() == bookedTableNumber){
+                selectedTable = t;
+                break;
+            }
+        }
+        assert selectedTable != null;
+        if(selectedTable.getIsBooked()){
+               selectedTable.cancelBookedTable();
+                System.out.println("you unbooked table number : "+ selectedTable.getTableCode());
+        }else{
+            System.out.println("This book is not yet booked");
+        }
+    }
+    public void handleBooking(){
+
+        Scanner scanner = new Scanner(System.in);
+        bookingloop:
+        while(true){
+            displayRoleMenu(Role.startMenu);
+            System.out.println("===Welcome to the booking System!===");
+            System.out.println("1. Book a table");
+            System.out.println("2. Cancel a booking");
+            System.out.println("3. Back to previous menu");
+
+            int bookingChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (bookingChoice) {
+            case 1:
+                bookTable();
+            break;
+            case 2:
+                cancelBooking();
+                break;
+            case 3:
+                break bookingloop;
+            default:
+                System.out.println("Please select a valid option");
+                break;
+        }
+        }
+    }
 }
