@@ -1,21 +1,30 @@
 import java.util.HashMap;
+import java.util.Scanner;
+
 
 public class Kitchen {
     private final HashMap<String, Integer> availableIngredients;
     private HashMap<String, Integer> ingredientsRequiered;
+    Scanner scanner = new Scanner(System.in);
 
     public Kitchen() {
         availableIngredients = new HashMap<>();
         ingredientsRequiered = new HashMap<>();
 
-        availableIngredients.put("Egg", 2);
-        availableIngredients.put("Cheese", 1);
-        availableIngredients.put("Spaghetti", 1);
+        availableIngredients.put("Egg", 4);
+        availableIngredients.put("Cheese", 2);
+        availableIngredients.put("Spaghetti", 2);
     }
 
 
-    public void addAvailableIngredients(String ingredient, Integer quantity){
+    public void addAvailableIngredients(){
+        System.out.println("Enter an ingredient to buy:");
+        String ingredient = scanner.nextLine();
+        System.out.printf("How many %ss do you want to buy? ", ingredient);
+        int quantity = scanner.nextInt();
+        scanner.nextLine();
         availableIngredients.put(ingredient, availableIngredients.getOrDefault(ingredient, 0) + quantity);
+
     }
     public boolean checkRequiredIngredientsStock(Dish orderedFood){
         HashMap<String, Integer> ingredientsRequired = orderedFood.getIngredientsRequired();
@@ -43,5 +52,14 @@ public class Kitchen {
             System.out.println("Out of ingredients");
         }
         return false;
+    }
+    public void cancelOrder(Dish orderedFood) {
+        HashMap<String, Integer> ingredientsRequired = orderedFood.getIngredientsRequired();
+            for (String ingredient : ingredientsRequired.keySet()) {
+                int requiredAmount = ingredientsRequired.get(ingredient);
+                int availableAmount = availableIngredients.getOrDefault(ingredient, 0);
+                availableIngredients.put(ingredient, availableAmount + requiredAmount);
+            }
+        System.out.printf("Your order of %s has been canceled", orderedFood.getDishName());
     }
 }
