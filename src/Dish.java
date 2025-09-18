@@ -21,6 +21,8 @@ public class Dish {
         return dishPrice;
     }
 
-
+    public HashMap<String, Integer> getIngredientsRequired() {
+        return ingredientsRequired;
+    }
 }
 

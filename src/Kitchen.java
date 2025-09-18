@@ -1,22 +1,37 @@
 import java.util.HashMap;
 
 public class Kitchen {
-    private final HashMap<String, Integer> ingredients;
+    private final HashMap<String, Integer> availableIngredients;
+    private HashMap<String, Integer> ingredientsRequiered;
 
     public Kitchen() {
-        ingredients = new HashMap<>();
+        availableIngredients = new HashMap<>();
+        ingredientsRequiered = new HashMap<>();
 
-        ingredients.put("Egg", 10);
-        ingredients.put("cheese", 10);
-        ingredients.put("Spaghetti", 10);
+        availableIngredients.put("Egg", 10);
+        availableIngredients.put("Cheese", 10);
+        availableIngredients.put("Spaghetti", 10);
     }
 
 
     public void addAvailableIngredients(String ingredient, Integer quantity){
-        ingredients.put(ingredient, ingredients.getOrDefault(ingredient, 0) + quantity);
+        availableIngredients.put(ingredient, availableIngredients.getOrDefault(ingredient, 0) + quantity);
     }
 
-    public void cook(String food) {
-        System.out.printf("\nThe kitchen has made %s for you", food);
+    public void cook(Dish orderedFood) {
+        HashMap<String, Integer> ingredientsRequired = orderedFood.getIngredientsRequired();
+        for (String ingredient : ingredientsRequired.keySet()){
+            int requiredAmount = ingredientsRequired.get(ingredient);
+            int availableAmount = availableIngredients.getOrDefault(ingredient, 0);
+
+            if (requiredAmount > availableAmount){
+                System.out.printf("\nWe are missing %s\n",ingredient);
+                System.out.printf("We have %s %s we require %s", availableAmount, ingredient, requiredAmount);
+                return;
+            }
+        }
+
+        System.out.printf("\nThe kitchen has made %s for you", orderedFood.getDishName());
+
     }
 }

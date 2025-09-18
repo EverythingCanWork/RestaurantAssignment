@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Restaurant {
-    boolean open = false;
+    boolean open = true;
     Scanner scanner = new Scanner(System.in);
     Menu menu = new Menu();
     Kitchen kitchen = new Kitchen();
@@ -80,18 +80,18 @@ public class Restaurant {
         displayRoleMenu(Role.staff);
     }
     public void customerMenu() {
-        displayRoleMenu(Role.customer);
         int currentBill = 0;
         boolean[] payed = {false};
         customerMenuLoop:
         while(true) {
+            displayRoleMenu(Role.customer);
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
                 case 1:
-                    System.out.println("Menu: ");
                     menu.showMenu();
+                    pauseUntilEnter();
                     break;
                 case 2:
                     System.out.print("Please enter your order: ");
@@ -101,17 +101,13 @@ public class Restaurant {
                     int foodPrice = dishOrdered.getDishPrice();
                     scanner.nextLine();
                     System.out.printf("\nYou have ordered %s for %skr", foodOrdered, foodPrice);
-                    kitchen.cook(foodOrdered);
-                    currentBill = currentBill + foodPrice;
-
-                    scanner.nextLine();
-
-                    currentBill = handlePayChoice(foodOrdered,foodPrice,currentBill,payed);
-
+                    kitchen.cook(dishOrdered);
+                    pauseUntilEnter();
+                    currentBill = handlePayChoice(foodPrice,currentBill,payed);
+                    pauseUntilEnter();
                     break;
 
                 case 4:
-                    displayRoleMenu(Role.customer);
                     break;
 
                 case 5:
@@ -124,23 +120,18 @@ public class Restaurant {
                             break;
                         }
                     }
+                    pauseUntilEnter();
                     break;
                 case 6:
-                    if (currentBill == 0) {
-                        System.out.println("Thank you and come again!");
-                        break customerMenuLoop;
-                    } else {
-                        System.out.println("You have not yet payed!");
-                        System.out.printf("you still have a bill of %skr", currentBill);
-                    }
-                    break;
+                    System.out.println("Thank you and come again!");
+                    break customerMenuLoop;
                 default:
                     System.out.println("Please select a valid number");
                     break;
             }
         }
     }
-    private int handlePayChoice(String foodOrdered, int foodPrice,int currentBill, boolean[] payed){
+    private int handlePayChoice(int foodPrice,int currentBill, boolean[] payed){
         System.out.println("\nWould you like to: ");
         System.out.println("1. Pay now");
         System.out.println("2. Cancel this order");
@@ -246,4 +237,9 @@ public class Restaurant {
 
         }
     }
+    public void pauseUntilEnter(){
+        System.out.println("\nPress Enter to continue...");
+        scanner.nextLine();
+    }
+
 }
