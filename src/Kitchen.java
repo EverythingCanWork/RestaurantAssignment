@@ -1,22 +1,65 @@
 import java.util.HashMap;
+import java.util.Scanner;
+
 
 public class Kitchen {
-    private final HashMap<String, Integer> ingredients;
+    private final HashMap<String, Integer> availableIngredients;
+    private HashMap<String, Integer> ingredientsRequiered;
+    Scanner scanner = new Scanner(System.in);
 
     public Kitchen() {
-        ingredients = new HashMap<>();
+        availableIngredients = new HashMap<>();
+        ingredientsRequiered = new HashMap<>();
 
-        ingredients.put("Egg", 10);
-        ingredients.put("cheese", 10);
-        ingredients.put("Spaghetti", 10);
+        availableIngredients.put("Egg", 4);
+        availableIngredients.put("Cheese", 2);
+        availableIngredients.put("Spaghetti", 2);
     }
 
 
-    public void addAvailableIngredients(String ingredient, Integer quantity){
-        ingredients.put(ingredient, ingredients.getOrDefault(ingredient, 0) + quantity);
-    }
+    public void addAvailableIngredients(){
+        System.out.println("Enter an ingredient to buy:");
+        String ingredient = scanner.nextLine();
+        System.out.printf("How many %ss do you want to buy? ", ingredient);
+        int quantity = scanner.nextInt();
+        scanner.nextLine();
+        availableIngredients.put(ingredient, availableIngredients.getOrDefault(ingredient, 0) + quantity);
 
-    public void cook(String food) {
-        System.out.printf("\nThe kitchen has made %s for you", food);
+    }
+    public boolean checkRequiredIngredientsStock(Dish orderedFood){
+        HashMap<String, Integer> ingredientsRequired = orderedFood.getIngredientsRequired();
+
+        for (String ingredient : ingredientsRequired.keySet()) {
+            int requiredAmount = ingredientsRequired.get(ingredient);
+            int availableAmount = availableIngredients.getOrDefault(ingredient, 0);
+
+            if (requiredAmount > availableAmount) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean cook(Dish orderedFood) {
+        HashMap<String, Integer> ingredientsRequired = orderedFood.getIngredientsRequired();
+        if(checkRequiredIngredientsStock(orderedFood)) {
+            for (String ingredient : ingredientsRequired.keySet()) {
+                int requiredAmount = ingredientsRequired.get(ingredient);
+                int availableAmount = availableIngredients.getOrDefault(ingredient, 0);
+                availableIngredients.put(ingredient, availableAmount - requiredAmount);
+            }
+            return true;
+        }else {
+            System.out.println("Out of ingredients");
+        }
+        return false;
+    }
+    public void cancelOrder(Dish orderedFood) {
+        HashMap<String, Integer> ingredientsRequired = orderedFood.getIngredientsRequired();
+            for (String ingredient : ingredientsRequired.keySet()) {
+                int requiredAmount = ingredientsRequired.get(ingredient);
+                int availableAmount = availableIngredients.getOrDefault(ingredient, 0);
+                availableIngredients.put(ingredient, availableAmount + requiredAmount);
+            }
+        System.out.printf("Your order of %s has been canceled", orderedFood.getDishName());
     }
 }

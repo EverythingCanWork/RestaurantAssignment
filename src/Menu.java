@@ -38,6 +38,7 @@ public class Menu {
     }
 
     public void showMenu() {
+        System.out.println("=====MENU=====");
         for (int i = 0; i < dishes.size(); i++) {
             Dish dish = dishes.get(i);
             System.out.println((i + 1) + ". " + dish.getDishName() + ": " + dish.getDishPrice() + "kr");
@@ -80,6 +81,9 @@ public class Menu {
 
     }
 
+    public ArrayList<Dish> getDishes() {
+        return dishes;
+    }
 }
 
 

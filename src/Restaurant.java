@@ -81,7 +81,7 @@ public class Restaurant {
     public void customerMenu() {
 
         int currentBill = 0;
-        boolean[] payed = {false};
+        boolean[] payedStatus = {false};
         customerMenuLoop:
         while(true) {
             displayRoleMenu(Role.customer);
@@ -90,24 +90,12 @@ public class Restaurant {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Menu: ");
-                    menu.showMenu();
+                    showMenuWithAvailability();
+                    pauseUntilEnter();
                     break;
                 case 2:
-                    System.out.print("Please enter your order: ");
-                    int foodOrderIndex = scanner.nextInt() - 1;
-                    Dish dishOrdered = menu.getFoods(foodOrderIndex);
-                    String foodOrdered = dishOrdered.getDishName();
-                    int foodPrice = dishOrdered.getDishPrice();
-                    scanner.nextLine();
-                    System.out.printf("\nYou have ordered %s for %skr", foodOrdered, foodPrice);
-                    kitchen.cook(foodOrdered);
-                    currentBill = currentBill + foodPrice;
-
-                    scanner.nextLine();
-
-                    currentBill = handlePayChoice(foodOrdered,foodPrice,currentBill,payed);
-
+                    currentBill = processOrder(takeOrder(), currentBill, payedStatus);
+                    pauseUntilEnter();
                     break;
 
                 case 4:
@@ -116,21 +104,15 @@ public class Restaurant {
                     handleBooking();
                     break;
                 case 6:
-                    if (currentBill == 0) {
-                        System.out.println("Thank you and come again!");
-                        break customerMenuLoop;
-                    } else {
-                        System.out.println("You have not yet payed!");
-                        System.out.printf("you still have a bill of %skr", currentBill);
-                    }
-                    break;
+                    System.out.println("Thank you and come again!");
+                    break customerMenuLoop;
                 default:
                     System.out.println("Please select a valid number");
                     break;
             }
         }
     }
-    private int handlePayChoice(String foodOrdered, int foodPrice,int currentBill, boolean[] payed){
+    private int handlePayChoice(int foodPrice,int currentBill, boolean[] payed, Dish dishOrdered){
         System.out.println("\nWould you like to: ");
         System.out.println("1. Pay now");
         System.out.println("2. Cancel this order");
@@ -144,12 +126,12 @@ public class Restaurant {
                 currentBill = 0;
                 break;
             case 2:
-                System.out.println("Your order of %s has been canceled.\n");
+                kitchen.cancelOrder(dishOrdered);
                 currentBill = currentBill - foodPrice;
                 break;
             case 3:
-                System.out.println("Continue your ordering"); //TODO: Antingen ta bort alternativet så man bara kan beställa en rätt, eller lägga till funktonaliten
-                menu.showMenu();
+                System.out.println("Continue your ordering");
+                currentBill = processOrder(takeOrder(), currentBill, payed);
                 break;
             default:
                 System.out.println("Invalid choice.");
@@ -179,6 +161,8 @@ public class Restaurant {
                 case 5:
                     displayRoleMenu(Role.staff);
                     break;
+                case 6:
+                    kitchen.addAvailableIngredients();
                 case 0:
                     displayRoleMenu(Role.startMenu);
                     break staffMenuLoop;
@@ -230,6 +214,11 @@ public class Restaurant {
 
         }
     }
+    public void pauseUntilEnter(){
+        System.out.println("\nPress Enter to continue...");
+        scanner.nextLine();
+    }
+
     public void bookTable() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the table number you want to book: ");
@@ -305,5 +294,42 @@ public class Restaurant {
                 break;
         }
         }
+    }
+    public void showMenuWithAvailability() {
+        System.out.println("=====MENU=====");
+        for (int i = 0; i < menu.getDishes().size(); i++) {
+            Dish dish = menu.getDishes().get(i);
+            boolean ingredientAvailable = kitchen.checkRequiredIngredientsStock(dish);
+            String availability;
+            if (ingredientAvailable) {
+                availability = "(Available)";
+            } else {
+                availability = "(Out of stock)";
+            }
+            System.out.printf("%s. %s : %s kr %s\n", (i + 1), dish.getDishName(), dish.getDishPrice(), availability);
+        }
+    }
+    public Dish takeOrder() {
+        showMenuWithAvailability();
+        System.out.print("Please enter your order: ");
+        int foodOrderIndex = scanner.nextInt() - 1;
+        Dish dishOrdered = menu.getFoods(foodOrderIndex);
+        scanner.nextLine();
+        return dishOrdered;
+    }
+
+    public int processOrder(Dish dishOrdered, int currentBill, boolean[] payed) {
+        if (kitchen.cook(dishOrdered)) {
+            int orderPrice = dishOrdered.getDishPrice();
+            System.out.printf("\nYou have ordered %s for %skr", dishOrdered.getDishName(), orderPrice);
+            currentBill = currentBill + orderPrice;
+            System.out.printf("your current bill is %s", currentBill);
+            pauseUntilEnter();
+
+            if (currentBill > 0) {
+                currentBill = handlePayChoice(orderPrice, currentBill, payed, dishOrdered);
+            }
+        }
+        return currentBill;
     }
 }
