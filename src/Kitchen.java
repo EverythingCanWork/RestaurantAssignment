@@ -21,8 +21,7 @@ public class Kitchen {
         System.out.println("Enter an ingredient to buy:");
         String ingredient = scanner.nextLine();
         System.out.printf("How many %ss do you want to buy? ", ingredient);
-        int quantity = scanner.nextInt();
-        scanner.nextLine();
+        int quantity = InputHandler.getIntInput();
         availableIngredients.put(ingredient, availableIngredients.getOrDefault(ingredient, 0) + quantity);
 
     }

@@ -47,8 +47,7 @@ public class Staff {
         scanner.nextLine();
         this.personalNumber.add(personalNumber);
         System.out.println("enter the sallary of the new hire");
-        int sallery = scanner.nextInt();
-        scanner.nextLine();
+        int sallery = InputHandler.getIntInput();
         this.sallery.add(sallery);
         System.out.println("Enter the job title of the new hire");
         String jobTitle = scanner.nextLine();
@@ -59,7 +58,7 @@ public class Staff {
     public void fireStaff(){
         System.out.println("which person do you wish to fire?");
         viewStaff();
-        int removeIndex = scanner.nextInt() - 1;
+        int removeIndex = InputHandler.getIntInput() - 1;
         scanner.nextLine();
         System.out.printf("%s %s has been fired", firstName.get(removeIndex), lastName.get(removeIndex));
         firstName.remove(removeIndex);
