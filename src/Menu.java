@@ -81,6 +81,9 @@ public class Menu {
 
     }
 
+    public ArrayList<Dish> getDishes() {
+        return dishes;
+    }
 }
 
 

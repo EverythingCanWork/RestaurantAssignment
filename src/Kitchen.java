@@ -17,31 +17,31 @@ public class Kitchen {
     public void addAvailableIngredients(String ingredient, Integer quantity){
         availableIngredients.put(ingredient, availableIngredients.getOrDefault(ingredient, 0) + quantity);
     }
-
-    public boolean cook(Dish orderedFood) {
+    public boolean checkRequiredIngredientsStock(Dish orderedFood){
         HashMap<String, Integer> ingredientsRequired = orderedFood.getIngredientsRequired();
-        boolean missingIngredients = false;
+
         for (String ingredient : ingredientsRequired.keySet()) {
             int requiredAmount = ingredientsRequired.get(ingredient);
             int availableAmount = availableIngredients.getOrDefault(ingredient, 0);
 
             if (requiredAmount > availableAmount) {
-                System.out.printf("\nWe are missing %s\n", ingredient);
-                System.out.printf("We have %s %s we require %s", availableAmount, ingredient, requiredAmount);
-                missingIngredients = true;
+                return false;
             }
         }
-        if(missingIngredients){
-            return false;
-        }
-
-        for (String ingredient : ingredientsRequired.keySet()){
-            int requiredAmount = ingredientsRequired.get(ingredient);
-            int availableAmount = availableIngredients.getOrDefault(ingredient, 0);
-            availableIngredients.put(ingredient, availableAmount - requiredAmount);
-        }
-
-        //System.out.printf("\nThe kitchen has made %s for you", orderedFood.getDishName());
         return true;
+    }
+    public boolean cook(Dish orderedFood) {
+        HashMap<String, Integer> ingredientsRequired = orderedFood.getIngredientsRequired();
+        if(checkRequiredIngredientsStock(orderedFood)) {
+            for (String ingredient : ingredientsRequired.keySet()) {
+                int requiredAmount = ingredientsRequired.get(ingredient);
+                int availableAmount = availableIngredients.getOrDefault(ingredient, 0);
+                availableIngredients.put(ingredient, availableAmount - requiredAmount);
+            }
+            return true;
+        }else {
+            System.out.println("Out of ingredients");
+        }
+        return false;
     }
 }

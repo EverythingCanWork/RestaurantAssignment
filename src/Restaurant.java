@@ -90,7 +90,7 @@ public class Restaurant {
 
             switch (choice) {
                 case 1:
-                    menu.showMenu();
+                    showMenuWithAvailability();
                     pauseUntilEnter();
                     break;
                 case 2:
@@ -146,7 +146,7 @@ public class Restaurant {
                 break;
             case 3:
                 System.out.println("Continue your ordering"); //TODO: Antingen ta bort alternativet så man bara kan beställa en rätt, eller lägga till funktonaliten
-                menu.showMenu();
+                showMenuWithAvailability();
                 break;
             default:
                 System.out.println("Invalid choice.");
@@ -306,6 +306,20 @@ public class Restaurant {
                 System.out.println("Please select a valid option");
                 break;
         }
+        }
+    }
+    public void showMenuWithAvailability() {
+        System.out.println("=====MENU=====");
+        for (int i = 0; i < menu.getDishes().size(); i++) {
+            Dish dish = menu.getDishes().get(i);
+            boolean ingredientAvailable = kitchen.checkRequiredIngredientsStock(dish);
+            String availabillity = null;
+            if (ingredientAvailable) {
+                availabillity = "(Available)";
+            } else {
+                availabillity = "(Out of stock)";
+            }
+            System.out.printf("%s. %s : %s kr %s\n", (i + 1), dish.getDishName(), dish.getDishPrice(), availabillity);
         }
     }
 }
