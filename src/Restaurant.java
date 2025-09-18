@@ -186,7 +186,6 @@ public class Restaurant {
                 default:
                     System.out.println("please select a valid number");
                     displayRoleMenu(Role.staff);
-
             }
         }
 
@@ -228,8 +227,6 @@ public class Restaurant {
                 default:
                     System.out.println("please enter a valid number");
                     break;
-
-
             }
 
         }
@@ -252,15 +249,10 @@ public class Restaurant {
                 System.out.println("Please enter your name: ");
                 scanner.nextLine();
                 String name = scanner.nextLine();
-
                 selectedTable.setIsBooked(true);
                 selectedTable.setCustomerName(name);
 
                 System.out.println(" You booked table number : "+ selectedTable.getTableCode() + " with name: " + selectedTable.getCustomerName() );
-                for ( Table t : tables ) {
-                    System.out.println(t.getTableCode() + " " + t.getCustomerName() + t.getIsBooked());
-                }
-                return;
         }else{
                 System.out.println("Sorry! The table number: "+ selectedTable.getTableCode()+ " has already been booked");
             }
@@ -282,19 +274,17 @@ public class Restaurant {
         assert selectedTable != null;
         if(selectedTable.getIsBooked()){
                selectedTable.cancelBookedTable();
-                System.out.println("you unbooked table number : "+ selectedTable.getTableCode() + " with name: " + selectedTable.getCustomerName());
+                System.out.println("you unbooked table number : "+ selectedTable.getTableCode());
         }else{
             System.out.println("This book is not yet booked");
         }
     }
     public void handleBooking(){
         Scanner scanner = new Scanner(System.in);
-        mainloop:
         while(true){
             System.out.println("===Welcome to the booking System!===");
             System.out.println("1. Book a table");
             System.out.println("2. Cancel a booking");
-            System.out.println("3. Booking menu");
 
             int bookingChoice = scanner.nextInt();
             scanner.nextLine();
@@ -305,13 +295,10 @@ public class Restaurant {
             case 2:
                 cancelBooking();
                 break;
-                case 3:
-                    break mainloop;
             default:
                 System.out.println("Please select a valid option");
                 break;
         }
         }
-
     }
 }
