@@ -100,10 +100,16 @@ public class Restaurant {
                     String foodOrdered = dishOrdered.getDishName();
                     int foodPrice = dishOrdered.getDishPrice();
                     scanner.nextLine();
-                    System.out.printf("\nYou have ordered %s for %skr", foodOrdered, foodPrice);
-                    kitchen.cook(dishOrdered);
-                    pauseUntilEnter();
-                    currentBill = handlePayChoice(foodPrice,currentBill,payed);
+
+                    if (kitchen.cook(dishOrdered)){
+                        System.out.printf("\nYou have ordered %s for %skr", foodOrdered, foodPrice);
+                        currentBill = currentBill + foodPrice;
+                        pauseUntilEnter();
+                    }
+
+                    if (currentBill > 0) {
+                        currentBill = handlePayChoice(foodPrice, currentBill, payed, foodOrdered);
+                    }
                     pauseUntilEnter();
                     break;
 
@@ -131,7 +137,7 @@ public class Restaurant {
             }
         }
     }
-    private int handlePayChoice(int foodPrice,int currentBill, boolean[] payed){
+    private int handlePayChoice(int foodPrice,int currentBill, boolean[] payed, String foodOrdered){
         System.out.println("\nWould you like to: ");
         System.out.println("1. Pay now");
         System.out.println("2. Cancel this order");
@@ -145,7 +151,7 @@ public class Restaurant {
                 currentBill = 0;
                 break;
             case 2:
-                System.out.println("Your order of %s has been canceled.\n");
+                System.out.printf("Your order of %s has been canceled.\n", foodOrdered);
                 currentBill = currentBill - foodPrice;
                 break;
             case 3:

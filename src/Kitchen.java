@@ -8,9 +8,9 @@ public class Kitchen {
         availableIngredients = new HashMap<>();
         ingredientsRequiered = new HashMap<>();
 
-        availableIngredients.put("Egg", 10);
-        availableIngredients.put("Cheese", 10);
-        availableIngredients.put("Spaghetti", 10);
+        availableIngredients.put("Egg", 2);
+        availableIngredients.put("Cheese", 1);
+        availableIngredients.put("Spaghetti", 1);
     }
 
 
@@ -18,20 +18,30 @@ public class Kitchen {
         availableIngredients.put(ingredient, availableIngredients.getOrDefault(ingredient, 0) + quantity);
     }
 
-    public void cook(Dish orderedFood) {
+    public boolean cook(Dish orderedFood) {
         HashMap<String, Integer> ingredientsRequired = orderedFood.getIngredientsRequired();
-        for (String ingredient : ingredientsRequired.keySet()){
+        boolean missingIngredients = false;
+        for (String ingredient : ingredientsRequired.keySet()) {
             int requiredAmount = ingredientsRequired.get(ingredient);
             int availableAmount = availableIngredients.getOrDefault(ingredient, 0);
 
-            if (requiredAmount > availableAmount){
-                System.out.printf("\nWe are missing %s\n",ingredient);
+            if (requiredAmount > availableAmount) {
+                System.out.printf("\nWe are missing %s\n", ingredient);
                 System.out.printf("We have %s %s we require %s", availableAmount, ingredient, requiredAmount);
-                return;
+                missingIngredients = true;
             }
         }
+        if(missingIngredients){
+            return false;
+        }
 
-        System.out.printf("\nThe kitchen has made %s for you", orderedFood.getDishName());
+        for (String ingredient : ingredientsRequired.keySet()){
+            int requiredAmount = ingredientsRequired.get(ingredient);
+            int availableAmount = availableIngredients.getOrDefault(ingredient, 0);
+            availableIngredients.put(ingredient, availableAmount - requiredAmount);
+        }
 
+        //System.out.printf("\nThe kitchen has made %s for you", orderedFood.getDishName());
+        return true;
     }
 }
