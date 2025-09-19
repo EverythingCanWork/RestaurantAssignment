@@ -262,7 +262,6 @@ public class Restaurant {
 
         bookingloop:
         while(true){
-            displayRoleMenu(Role.startMenu);
             System.out.println("===Welcome to the booking System!===");
             System.out.println("1. Book a table");
             System.out.println("2. Cancel a booking");
@@ -273,7 +272,7 @@ public class Restaurant {
             switch (bookingChoice) {
             case 1:
                 bookTable();
-            break;
+                break;
             case 2:
                 cancelBooking();
                 break;
