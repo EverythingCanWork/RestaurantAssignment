@@ -8,7 +8,7 @@ public class Restaurant {
     ArrayList<Table> tables = new ArrayList<>();
 
     public Restaurant() {
-       for(int i = 0; i <= 10; i++) {
+       for(int i = 1; i <= 10; i++) {
            tables.add(new Table(i));
        }
     }
@@ -74,7 +74,6 @@ public class Restaurant {
             open = false;
             System.out.println("You have closed the restaurant\n");
         }
-        displayRoleMenu(Role.staff);
     }
     public void customerMenu() {
 
@@ -219,7 +218,7 @@ public class Restaurant {
         System.out.println("Please enter the table number you want to book: ");
         int tableNumber = InputHandler.getIntInput();
 
-        if(tableNumber <0 || tableNumber > 10){
+        if(tableNumber <=0 || tableNumber >= 10){
             System.out.println("Invalid table number! Please try again");
             return;
         }
@@ -233,7 +232,7 @@ public class Restaurant {
         }
         assert selectedTable != null;
         if(!selectedTable.getIsBooked()){
-                System.out.println("Please enter your name: \n");
+                System.out.println("Please enter your name: ");
                 String name = InputHandler.getStringInput();
                 selectedTable.setIsBooked(true);
                 selectedTable.setCustomerName(name);
@@ -249,11 +248,11 @@ public class Restaurant {
     public void cancelBooking(){
         System.out.println("Please enter the table number you want to unbook: ");
         int bookedTableNumber = InputHandler.getIntInput();
-        if(bookedTableNumber <0 || bookedTableNumber > 10){
+
+        if(bookedTableNumber <=0 || bookedTableNumber >= 10){
             System.out.println("Invalid table number! Please try again");
             return;
         }
-
 
         Table selectedTable=null;
         for(Table t:tables){
@@ -265,7 +264,8 @@ public class Restaurant {
         assert selectedTable != null;
         if(selectedTable.getIsBooked()){
                selectedTable.cancelBookedTable();
-                System.out.println("you unbooked table number : "+ selectedTable.getTableCode());
+                System.out.println("You unbooked table: : "+ selectedTable.getTableCode());
+                System.out.println("It was booked under: "+ selectedTable.getCustomerName());
         }else{
             System.out.println("This table is not yet booked!");
         }

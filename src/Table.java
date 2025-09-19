@@ -32,7 +32,5 @@ public class Table {
 
    public void cancelBookedTable(){
        this.isBooked = false;
-       this.customerName = "";
-       this.tableCode = 0;
    }
 }
