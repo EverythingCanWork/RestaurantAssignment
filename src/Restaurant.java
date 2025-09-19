@@ -218,6 +218,11 @@ public class Restaurant {
     public void bookTable() {
         System.out.println("Please enter the table number you want to book: ");
         int tableNumber = InputHandler.getIntInput();
+
+        if(tableNumber <0 || tableNumber > 10){
+            System.out.println("Invalid table number! Please try again");
+            return;
+        }
         Table selectedTable=null;
 
         for (Table t : tables) {
@@ -233,15 +238,22 @@ public class Restaurant {
                 selectedTable.setIsBooked(true);
                 selectedTable.setCustomerName(name);
 
-                System.out.println(" You booked table number : "+ selectedTable.getTableCode() + " with name: " + selectedTable.getCustomerName() );
-        }else{
-                System.out.println("Sorry! The table number: "+ selectedTable.getTableCode()+ " has already been booked");
-            }
+                System.out.println("Reservation confirmed");
+                System.out.println("Table number: "+ selectedTable.getTableCode());
+                System.out.println("Booked under: "+ selectedTable.getCustomerName());
 
+        }else{
+                System.out.println("Sorry! The table number: "+ selectedTable.getTableCode()+ " has already been booked! ");
+            }
     }
     public void cancelBooking(){
         System.out.println("Please enter the table number you want to unbook: ");
         int bookedTableNumber = InputHandler.getIntInput();
+        if(bookedTableNumber <0 || bookedTableNumber > 10){
+            System.out.println("Invalid table number! Please try again");
+            return;
+        }
+
 
         Table selectedTable=null;
         for(Table t:tables){
@@ -255,7 +267,7 @@ public class Restaurant {
                selectedTable.cancelBookedTable();
                 System.out.println("you unbooked table number : "+ selectedTable.getTableCode());
         }else{
-            System.out.println("This book is not yet booked");
+            System.out.println("This table is not yet booked!");
         }
     }
     public void handleBooking(){
