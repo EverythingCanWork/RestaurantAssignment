@@ -6,11 +6,6 @@ public class Table {
    private int tableCode;
    private String customerName;
 
-   public Table(int tableCode, boolean isBooked, String customerName) {
-       this.tableCode = tableCode;
-       this.isBooked = isBooked;
-       this.customerName = customerName;
-   }
     public Table(int tableCode) {
         this.tableCode = tableCode;
         this.isBooked = false;
@@ -20,9 +15,7 @@ public class Table {
    public int getTableCode() {
        return tableCode;
    }
-   public void setTableCode(int tableCode) {
-       this.tableCode = tableCode;
-   }
+
    public void setCustomerName(String customerName) {
       this.customerName = customerName;
    }
