@@ -49,10 +49,10 @@ public class Menu {
         System.out.println("Enter a dish to add:");
         String newDish = scanner.nextLine();
         System.out.println("enter a price for the new dish");
-        int price = scanner.nextInt();
+        int price = InputHandler.getIntInput();
         scanner.nextLine();
         System.out.println("Enter the number of ingredients");
-        int numberOfIngredients = scanner.nextInt();
+        int numberOfIngredients = InputHandler.getIntInput();
         scanner.nextLine();
         HashMap<String, Integer> ingredientsRequiered = new HashMap<>();
 
@@ -60,7 +60,7 @@ public class Menu {
             System.out.println("Enter the first ingredient:");
             String ingredient = scanner.nextLine();
             System.out.println("Enter the number of that ingredient:");
-            int quantity = scanner.nextInt();
+            int quantity = InputHandler.getIntInput();
             scanner.nextLine();
             ingredientsRequiered.put(ingredient, quantity);
         }
@@ -72,7 +72,7 @@ public class Menu {
     public void removeDish(){
         System.out.println("which menu item do you wish to remove?");
         showMenu();
-        int removeIndex = scanner.nextInt() - 1;
+        int removeIndex = InputHandler.getIntInput() - 1;
         dishes.remove(removeIndex);
     }
     public Dish getFoods(int order) {

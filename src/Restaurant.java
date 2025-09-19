@@ -1,9 +1,7 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Restaurant {
     boolean open = true;
-    Scanner scanner = new Scanner(System.in);
     Menu menu = new Menu();
     Kitchen kitchen = new Kitchen();
     Staff staff = new Staff();
@@ -85,8 +83,7 @@ public class Restaurant {
         customerMenuLoop:
         while(true) {
             displayRoleMenu(Role.customer);
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = InputHandler.getIntInput();
 
             switch (choice) {
                 case 1:
@@ -117,8 +114,8 @@ public class Restaurant {
         System.out.println("1. Pay now");
         System.out.println("2. Cancel this order");
         System.out.println("3. Continue ordering");
-        int payChoice = scanner.nextInt();
-        scanner.nextLine();
+        int payChoice = InputHandler.getIntInput();
+
         switch (payChoice) {
             case 1:
                 System.out.printf("You have payed your bill of %skr\n", currentBill);
@@ -143,8 +140,8 @@ public class Restaurant {
         displayRoleMenu(Role.staff);
         staffMenuLoop:
         while(true){
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = InputHandler.getIntInput();
+
             switch (choice) {
                 case 1:
                     changeRestaurantStatus();
@@ -177,8 +174,8 @@ public class Restaurant {
         displayRoleMenu(Role.admin);
         adminMenuLoop:
         while(true){
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = InputHandler.getIntInput();
+
             switch(choice){
                 case 1:
                     menu.showMenu();
@@ -215,14 +212,12 @@ public class Restaurant {
         }
     }
     public void pauseUntilEnter(){
-        System.out.println("\nPress Enter to continue...");
-        scanner.nextLine();
+        System.out.println("\nPress Enter to continue...\n");
     }
 
     public void bookTable() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter the table number you want to book: ");
-        int tableNumber = scanner.nextInt();
+        int tableNumber = InputHandler.getIntInput();
         Table selectedTable=null;
 
         for (Table t : tables) {
@@ -233,9 +228,8 @@ public class Restaurant {
         }
         assert selectedTable != null;
         if(!selectedTable.getIsBooked()){
-                System.out.println("Please enter your name: ");
-                scanner.nextLine();
-                String name = scanner.nextLine();
+                System.out.println("Please enter your name: \n");
+                String name = InputHandler.getStringInput();
                 selectedTable.setIsBooked(true);
                 selectedTable.setCustomerName(name);
 
@@ -247,9 +241,7 @@ public class Restaurant {
     }
     public void cancelBooking(){
         System.out.println("Please enter the table number you want to unbook: ");
-        Scanner scanner= new Scanner(System.in);
-        int bookedTableNumber = scanner.nextInt();
-        scanner.nextLine();
+        int bookedTableNumber = InputHandler.getIntInput();
 
         Table selectedTable=null;
         for(Table t:tables){
@@ -268,7 +260,6 @@ public class Restaurant {
     }
     public void handleBooking(){
 
-        Scanner scanner = new Scanner(System.in);
         bookingloop:
         while(true){
             displayRoleMenu(Role.startMenu);
@@ -277,8 +268,7 @@ public class Restaurant {
             System.out.println("2. Cancel a booking");
             System.out.println("3. Back to previous menu");
 
-            int bookingChoice = scanner.nextInt();
-            scanner.nextLine();
+            int bookingChoice = InputHandler.getIntInput();
 
             switch (bookingChoice) {
             case 1:
@@ -312,9 +302,8 @@ public class Restaurant {
     public Dish takeOrder() {
         showMenuWithAvailability();
         System.out.print("Please enter your order: ");
-        int foodOrderIndex = scanner.nextInt() - 1;
+        int foodOrderIndex = InputHandler.getIntInput() - 1;
         Dish dishOrdered = menu.getFoods(foodOrderIndex);
-        scanner.nextLine();
         return dishOrdered;
     }
 

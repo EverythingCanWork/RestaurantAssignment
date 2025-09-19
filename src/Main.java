@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Restaurant restaurant = new Restaurant();
-        Scanner scanner = new Scanner(System.in);
         System.out.println("\nWelcome to the restaurant!");
         restaurant.displayRoleMenu(Restaurant.Role.startMenu);
         mainloop:
