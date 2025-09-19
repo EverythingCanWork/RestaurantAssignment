@@ -7,16 +7,5 @@ User -> Main : Start application
 Main -> Restaurant : displayRoleMenu(startMenu)
 User -> Restaurant : selectRole(1 - Customer)
 Restaurant -> Restaurant : customerMenu()
-User -> Restaurant : selectOption(5 - Booking System)
-Restaurant -> Restaurant : handleBooking()
-User -> Restaurant : selectOption(1 - Book Table)
-Restaurant -> Restaurant : bookTable()
-User -> Restaurant : enterTableNumber()
-Restaurant -> Restaurant : checkIfBooked()
-alt Table available
-    User -> Restaurant : enterName()
-    Restaurant -> Restaurant : confirmBooking()
-else Table already booked
-    Restaurant -> User : showError()
-end
+
 @enduml
