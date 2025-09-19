@@ -50,21 +50,18 @@ public class Menu {
         String newDish = scanner.nextLine();
         System.out.println("enter a price for the new dish");
         int price = InputHandler.getIntInput();
-        scanner.nextLine();
         System.out.println("Enter the number of ingredients");
         int numberOfIngredients = InputHandler.getIntInput();
-        scanner.nextLine();
-        HashMap<String, Integer> ingredientsRequiered = new HashMap<>();
+        HashMap<String, Integer> ingredientsRequired = new HashMap<>();
 
         for (int i = 0; i < numberOfIngredients; i++) {
-            System.out.println("Enter the first ingredient:");
+            System.out.println("Enter the ingredient:");
             String ingredient = scanner.nextLine();
             System.out.println("Enter the number of that ingredient:");
             int quantity = InputHandler.getIntInput();
-            scanner.nextLine();
-            ingredientsRequiered.put(ingredient, quantity);
+            ingredientsRequired.put(ingredient, quantity);
         }
-        Dish newDishObject = new Dish(newDish, price, ingredientsRequiered);
+        Dish newDishObject = new Dish(newDish, price, ingredientsRequired);
         dishes.add(newDishObject);
 
 

@@ -59,7 +59,6 @@ public class Staff {
         System.out.println("which person do you wish to fire?");
         viewStaff();
         int removeIndex = InputHandler.getIntInput() - 1;
-        scanner.nextLine();
         System.out.printf("%s %s has been fired", firstName.get(removeIndex), lastName.get(removeIndex));
         firstName.remove(removeIndex);
         lastName.remove(removeIndex);
